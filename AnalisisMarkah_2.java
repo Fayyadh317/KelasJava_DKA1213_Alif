@@ -32,12 +32,49 @@ public class AnalisisMarkah_2 {
                     InputNama();
                     break;
                 case 2:
-                    InputMarkah();
+                    if(namaPelajar == null){
+                        System.out.println("***** TIADA DATA MURID *****");
+                        System.out.println("\nSILA PILIH MENU 1 UNTUK DAFTAR MURID\n");
+                    }
+                    else{
+                        InputMarkah();
+                    }
                     break;
                 case 3:
-                    KiraPurata();
-                    Display();
+                    if(namaPelajar == null){
+                        System.out.println("***** TIADA DATA MURID *****");
+                        System.out.println("\nSILA PILIH MENU 1 UNTUK DAFTAR MURID\n");
+                    }
+                    else{
+                        KiraPurata();
+                        Display();
+                    }
                     break;
+                case 4:
+                    if(namaPelajar == null){
+                        System.out.println("***** TIADA DATA MURID *****");
+                        System.out.println("\nSILA PILIH MENU 1 UNTUK DAFTAR MURID\n");
+                    }
+                    else{
+                        SenaraiAnugerah();
+                    }
+                    break;
+                case 5: //Keluar
+                    System.out.println("\nANDA PASTI UNTUK KELUAR?");
+                    System.out.print("Masukkan Y/y untuk YA, T/t untuk TIDAK: ");
+                    char pilihanHuruf = input.next().charAt(0);
+                    
+                    if (pilihanHuruf == 'Y' || pilihanHuruf == 'y'){
+                        System.out.println("******* Terima Kasih kerana menggunakan sistem ini *******");
+                    }
+                    else if(pilihanHuruf == 'T' || pilihanHuruf == 't'){
+                        System.out.println(""); //Selang
+                        kodMenu = 0; //Reset semula
+                    }
+                    else {
+                        System.out.println("***** PILIHAN TIDAK SAH *****");
+                        kodMenu = 0; //Reset semula
+                    }
             }
         }while(kodMenu!=5);
     }//Tamat main
@@ -187,4 +224,42 @@ public class AnalisisMarkah_2 {
         System.out.println(""); //Jarak selang
         
     }//Tamat Display()
+    public static String CariPenerimaAnugerah(double markah[][], int subjekArray){
+        //Declare variable untuk nilai terendah dan nama
+        double tertinggi = -1;
+        String namaPenerima = "";
+        
+        //Loop untuk cari pelajar tertinggi
+        for(int i=0;i<namaPelajar.length;i++){
+            if(tertinggi < markah[i][subjekArray]){
+                tertinggi = markah[i][subjekArray];
+                namaPenerima = namaPelajar[i];
+            }
+        }
+        
+        return namaPenerima+" ("+tertinggi+")";
+    } //Tamat CariPenerimaAnugerah()
+    public static String CariPermataCemerlang(double markahPertengahan[][], double markahAkhir[][]){
+        //Declare variable untuk nilai terendah dan nama
+        double tertinggi = -1; //Nilai ini akan diganti lepas sistem jumpa nilai lain masa looping
+        String namaPenerima = "";
+        
+        for(int i=0;i<namaPelajar.length;i++){
+            double purata = (MarkahPertengahanTahun[i][0]+MarkahPertengahanTahun[i][1]+MarkahPertengahanTahun[i][2]+
+                            MarkahAkhirTahun[i][0]+MarkahAkhirTahun[i][1]+MarkahAkhirTahun[i][2])/6;
+            
+            if(purata > tertinggi){ //Adakah purata yang diperoleh lebih tinggi daripada nilai tertinggi semasa?
+                namaPenerima = namaPelajar[i];
+            }
+        }
+        
+        return namaPenerima;
+    }//Tamat CariPermataCemerlang()
+    public static void SenaraiAnugerah(){
+        System.out.println("\n==== PENERIMA ANUGERAH ====\n");
+        System.out.println("Anugerah Mata Pelajaran Akhlak: "+CariPenerimaAnugerah(MarkahAkhirTahun,0));
+        System.out.println("Anugerah Mata Pelajaran Akidah: "+CariPenerimaAnugerah(MarkahAkhirTahun,1));
+        System.out.println("Anugerah Mata Pelajaran Tajwid: "+CariPenerimaAnugerah(MarkahAkhirTahun,2));
+        System.out.println("\nPermata Cemerlang: "+CariPermataCemerlang(MarkahPertengahanTahun,MarkahAkhirTahun));
+    }//Tamat SenaraiAnugerah()
 }//Tamat class
