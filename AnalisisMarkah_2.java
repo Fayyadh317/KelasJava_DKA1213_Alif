@@ -31,6 +31,13 @@ public class AnalisisMarkah_2 {
                 case 1:
                     InputNama();
                     break;
+                case 2:
+                    InputMarkah();
+                    break;
+                case 3:
+                    KiraPurata();
+                    Display();
+                    break;
             }
         }while(kodMenu!=5);
     }//Tamat main
@@ -45,6 +52,7 @@ public class AnalisisMarkah_2 {
     public static void InputNama(){
         System.out.print("Sila Masukkan Bilangan Pelajar: ");
         int bilPelajar = input.nextInt();
+        input.nextLine(); //Alter semula bug skip input
         
         namaPelajar = new String[bilPelajar];
         purataPertengahanTahun = new double[bilPelajar];
@@ -74,6 +82,7 @@ public class AnalisisMarkah_2 {
             System.out.println("Pelajar "+(iT+1)+": "+namaPelajar[iT]);
             System.out.println(""); //Selang
             for(cT=0;cT<3;cT++){
+                System.out.print("Markah subjek "+matapelajaran[cT]+": ");
                 MarkahPertengahanTahun[iT][cT] = input.nextDouble();
             }
             System.out.println(""); //Selang
@@ -88,6 +97,7 @@ public class AnalisisMarkah_2 {
             System.out.println("Pelajar "+(iA+1)+": "+namaPelajar[iA]);
             System.out.println(""); //Selang
             for(cA=0;cA<3;cA++){
+                System.out.print("Markah subjek "+matapelajaran[cA]+": ");
                 MarkahAkhirTahun[iA][cA] = input.nextDouble();
             }
             System.out.println(""); //Selang
@@ -135,5 +145,46 @@ public class AnalisisMarkah_2 {
         for(r=0;r<namaPelajar.length;r++){
             purataAkhir[r] = (purataAkhlak[r]+purataAqidah[r]+purataTajwid[r])/3;
         }
-    }
+    }//Tamat KiraPurata()
+    public static void Display(){
+        System.out.println("Markah Keseluruhan\n");
+        
+        //Display Markah Pertengahan Tahun
+        System.out.println("---------- MARKAH PERTENGAHAN TAHUN ----------");
+        System.out.println("Nama\t\tAkhlak\tAqidah\tTajwid\tPurata");
+
+        for(int r=0;r<namaPelajar.length;r++){
+            System.out.print(namaPelajar[r]+"\t\t");
+            for(int c=0;c<matapelajaran.length;c++){
+                System.out.print(MarkahPertengahanTahun[r][c]+"\t");
+            }
+            System.out.print(purataPertengahanTahun[r]+"\n");
+        }
+        System.out.println(""); //Jarak selang
+        
+        //Display Markah Akhir Tahun
+        System.out.println("---------- MARKAH AKHIR TAHUN ----------");
+        System.out.println("Nama\t\tAkhlak\tAqidah\tTajwid\tPurata");
+
+        for(int r=0;r<namaPelajar.length;r++){
+            System.out.print(namaPelajar[r]+"\t\t");
+            for(int c=0;c<matapelajaran.length;c++){
+                System.out.print(MarkahAkhirTahun[r][c]+"\t");
+            }
+            System.out.print(purataAkhirTahun[r]+"\n");
+        }
+        System.out.println(""); //Jarak selang
+        
+        //Display Purata
+        System.out.println("---------- PURATA KESELURUHAN ----------");
+        System.out.println("Nama\t\tAkhlak\tAqidah\tTajwid\tPurata");
+
+        for(int r=0;r<namaPelajar.length;r++){
+            System.out.print(namaPelajar[r]+"\t\t");
+            System.out.print(purataAkhlak[r]+"\t"+purataAqidah[r]+"\t"+purataTajwid[r]+"\t");
+            System.out.print(purataAkhir[r]+"\n");
+        }
+        System.out.println(""); //Jarak selang
+        
+    }//Tamat Display()
 }//Tamat class
